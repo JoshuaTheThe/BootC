@@ -2,9 +2,9 @@
         [bits 16]
         ;       tokens
         TOKEN_EOF    equ 0
-        TOKEN_ADD    equ 1
-        TOKEN_SUB    equ 2
-        TOKEN_MUL    equ 3
+        TOKEN_MUL    equ 1
+        TOKEN_ADD    equ 2
+        TOKEN_SUB    equ 3
         TOKEN_DIV    equ 4
         TOKEN_LPAREN equ 5
         TOKEN_RPAREN equ 6
@@ -31,9 +31,9 @@ _start: cld
         inc     ch
         repe    stosb
         ;       [..] := tokenfor(chr)
-init:   mov     byte[bx + '+'], TOKEN_ADD
+init:   mov     byte[bx + '*'], TOKEN_MUL
+        mov     byte[bx + '+'], TOKEN_ADD
         mov     byte[bx + '-'], TOKEN_SUB
-        mov     byte[bx + '*'], TOKEN_MUL
         mov     byte[bx + '/'], TOKEN_DIV
         mov     byte[bx + '('], TOKEN_LPAREN
         mov     byte[bx + ')'], TOKEN_RPAREN
