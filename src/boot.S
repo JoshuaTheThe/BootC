@@ -30,6 +30,8 @@ _start: cld
         inc     ch
         repe    stosb
         %include "init.S"
+forever:call    next
+        jmp     forever
         %include "tok.S"
         times   510-($-$$) nop
         dw      0xAA55

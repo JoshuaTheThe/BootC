@@ -41,10 +41,10 @@ ident:  mov     al, ah
 fall_id:mov     byte[si], ah
         ;       current = identifier
         mov     al, TOKEN_IDENT
-        ;       next;
+        ;       yield
         mov     dh, dl
-        jmp     next
+        ret
         ;       prev = current
 fall:   mov     dh, al
-        ;       next;
-        jmp     next
+        ;       yield
+        ret

@@ -26,38 +26,37 @@ Disassembly of section .data:
   23:	83 c7 06             	add    $0x6,%di
   26:	59                   	pop    %cx
   27:	f3 aa                	rep stos %al,%es:(%di)
-  29:	bf 01 7e             	mov    $0x7e01,%di
-  2c:	b1 08                	mov    $0x8,%cl
-  2e:	8a 04                	mov    (%si),%al
-  30:	84 c0                	test   %al,%al
-  32:	74 04                	je     0x38
-  34:	88 14                	mov    %dl,(%si)
-  36:	eb 08                	jmp    0x40
-  38:	31 c0                	xor    %ax,%ax
-  3a:	cd 16                	int    $0x16
-  3c:	b4 0e                	mov    $0xe,%ah
-  3e:	cd 10                	int    $0x10
-  40:	88 c4                	mov    %al,%ah
-  42:	d7                   	xlat   %ds:(%bx)
-  43:	3c 01                	cmp    $0x1,%al
-  45:	74 07                	je     0x4e
-  47:	80 fe 01             	cmp    $0x1,%dh
-  4a:	75 14                	jne    0x60
-  4c:	eb 0a                	jmp    0x58
-  4e:	88 e0                	mov    %ah,%al
-  50:	aa                   	stos   %al,%es:(%di)
-  51:	b6 01                	mov    $0x1,%dh
-  53:	e2 d9                	loop   0x2e
-  55:	88 55 ff             	mov    %dl,-0x1(%di)
-  58:	88 24                	mov    %ah,(%si)
-  5a:	b0 01                	mov    $0x1,%al
-  5c:	88 d6                	mov    %dl,%dh
-  5e:	eb c9                	jmp    0x29
-  60:	88 c6                	mov    %al,%dh
-  62:	eb c5                	jmp    0x29
-  64:	90                   	nop
-  65:	90                   	nop
-  66:	90                   	nop
+  29:	e8 02 00             	call   0x2e
+  2c:	eb fb                	jmp    0x29
+  2e:	bf 01 7e             	mov    $0x7e01,%di
+  31:	b1 08                	mov    $0x8,%cl
+  33:	8a 04                	mov    (%si),%al
+  35:	84 c0                	test   %al,%al
+  37:	74 04                	je     0x3d
+  39:	88 14                	mov    %dl,(%si)
+  3b:	eb 08                	jmp    0x45
+  3d:	31 c0                	xor    %ax,%ax
+  3f:	cd 16                	int    $0x16
+  41:	b4 0e                	mov    $0xe,%ah
+  43:	cd 10                	int    $0x10
+  45:	88 c4                	mov    %al,%ah
+  47:	d7                   	xlat   %ds:(%bx)
+  48:	3c 01                	cmp    $0x1,%al
+  4a:	74 07                	je     0x53
+  4c:	80 fe 01             	cmp    $0x1,%dh
+  4f:	75 13                	jne    0x64
+  51:	eb 0a                	jmp    0x5d
+  53:	88 e0                	mov    %ah,%al
+  55:	aa                   	stos   %al,%es:(%di)
+  56:	b6 01                	mov    $0x1,%dh
+  58:	e2 d9                	loop   0x33
+  5a:	88 55 ff             	mov    %dl,-0x1(%di)
+  5d:	88 24                	mov    %ah,(%si)
+  5f:	b0 01                	mov    $0x1,%al
+  61:	88 d6                	mov    %dl,%dh
+  63:	c3                   	ret    
+  64:	88 c6                	mov    %al,%dh
+  66:	c3                   	ret    
   67:	90                   	nop
   68:	90                   	nop
   69:	90                   	nop
