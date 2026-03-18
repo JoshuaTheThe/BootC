@@ -44,19 +44,21 @@ Disassembly of section .data:
   48:	3c 01                	cmp    $0x1,%al
   4a:	74 07                	je     0x53
   4c:	80 fe 01             	cmp    $0x1,%dh
-  4f:	75 13                	jne    0x64
-  51:	eb 0a                	jmp    0x5d
+  4f:	74 09                	je     0x5a
+  51:	eb 0d                	jmp    0x60
   53:	88 e0                	mov    %ah,%al
   55:	aa                   	stos   %al,%es:(%di)
   56:	b6 01                	mov    $0x1,%dh
   58:	e2 d9                	loop   0x33
-  5a:	88 55 ff             	mov    %dl,-0x1(%di)
-  5d:	88 24                	mov    %ah,(%si)
-  5f:	b0 01                	mov    $0x1,%al
-  61:	88 d6                	mov    %dl,%dh
-  63:	c3                   	ret    
-  64:	88 c6                	mov    %al,%dh
-  66:	c3                   	ret    
+  5a:	88 15                	mov    %dl,(%di)
+  5c:	88 24                	mov    %ah,(%si)
+  5e:	b0 00                	mov    $0x0,%al
+  60:	88 c6                	mov    %al,%dh
+  62:	c3                   	ret    
+  63:	90                   	nop
+  64:	90                   	nop
+  65:	90                   	nop
+  66:	90                   	nop
   67:	90                   	nop
   68:	90                   	nop
   69:	90                   	nop

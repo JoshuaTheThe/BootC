@@ -27,8 +27,8 @@ tok:    mov     ah, al
 classif:cmp     al, TOKEN_IDENT
         je      ident
         cmp     dh, TOKEN_IDENT
-        jne     fall
-        jmp     fall_id
+        je      fall_id
+        jmp     fall
         ;       *ide[len ++] = chr
 ident:  mov     al, ah
         stosb
@@ -36,9 +36,9 @@ ident:  mov     al, ah
         mov     dh, TOKEN_IDENT
         loop    nextlp
         ;       *ide[len - 1] = 0
-        mov     byte[di-1], dl
+fall_id:mov     byte[di], dl
         ;       unget
-fall_id:mov     byte[si], ah
+        mov     byte[si], ah
         ;       current = identifier
         mov     al, TOKEN_IGNORE
         ;       prev = current
