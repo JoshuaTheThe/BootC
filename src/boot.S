@@ -1,7 +1,7 @@
         [org 0x7c00]
         [bits 16]
         ;       tokens
-        TOKEN_EOF    equ 0
+        TOKEN_IGNORE equ 0
         TOKEN_IDENT  equ 1
         TOKEN_NUMBER equ 2
         ;       All other tokens are the same as the ascii value
@@ -24,7 +24,7 @@ _start: cld
         ;       mov dx,0
         ;       dl must be zero, dh must be prev
         cwd
-        ;       [0..255] := EOF
+        ;       [0..255] := IGNORE
         mov     di, bx
         mov     cx, ax
         inc     ch

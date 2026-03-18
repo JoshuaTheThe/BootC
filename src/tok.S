@@ -40,10 +40,7 @@ ident:  mov     al, ah
         ;       unget
 fall_id:mov     byte[si], ah
         ;       current = identifier
-        mov     al, TOKEN_IDENT
-        ;       yield
-        mov     dh, dl
-        ret
+        mov     al, TOKEN_IGNORE
         ;       prev = current
 fall:   mov     dh, al
         ;       yield
