@@ -17,7 +17,7 @@ Disassembly of section .data:
   12:	89 f8                	mov    %di,%ax
   14:	aa                   	stos   %al,%es:(%di)
   15:	fe c0                	inc    %al
-  17:	71 e8                	jno    0x1
+  17:	71 f9                	jno    0x12
   19:	bf 41 60             	mov    $0x6041,%di
   1c:	b1 1a                	mov    $0x1a,%cl
   1e:	51                   	push   %cx
@@ -42,19 +42,18 @@ Disassembly of section .data:
   43:	3c 01                	cmp    $0x1,%al
   45:	74 07                	je     0x4e
   47:	80 fe 01             	cmp    $0x1,%dh
-  4a:	75 0e                	jne    0x5a
+  4a:	75 14                	jne    0x60
   4c:	eb 0a                	jmp    0x58
   4e:	88 e0                	mov    %ah,%al
   50:	aa                   	stos   %al,%es:(%di)
   51:	b6 01                	mov    $0x1,%dh
   53:	e2 d9                	loop   0x2e
-  55:	4f                   	dec    %di
-  56:	88 15                	mov    %dl,(%di)
+  55:	88 55 ff             	mov    %dl,-0x1(%di)
   58:	88 24                	mov    %ah,(%si)
-  5a:	88 c6                	mov    %al,%dh
-  5c:	72 02                	jb     0x60
+  5a:	b0 01                	mov    $0x1,%al
+  5c:	88 d6                	mov    %dl,%dh
   5e:	eb c9                	jmp    0x29
-  60:	b0 01                	mov    $0x1,%al
+  60:	88 c6                	mov    %al,%dh
   62:	eb c5                	jmp    0x29
   64:	90                   	nop
   65:	90                   	nop
