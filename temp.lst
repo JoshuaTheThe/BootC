@@ -51,13 +51,15 @@ Disassembly of section .data:
   55:	4f                   	dec    %di
   56:	88 15                	mov    %dl,(%di)
   58:	88 24                	mov    %ah,(%si)
-  5a:	72 06                	jb     0x62
+  5a:	72 04                	jb     0x60
   5c:	88 c6                	mov    %al,%dh
-  5e:	eb fe                	jmp    0x5e
-  60:	eb c7                	jmp    0x29
-  62:	b0 01                	mov    $0x1,%al
-  64:	eb fe                	jmp    0x64
-  66:	eb c1                	jmp    0x29
+  5e:	eb c9                	jmp    0x29
+  60:	b0 01                	mov    $0x1,%al
+  62:	eb c5                	jmp    0x29
+  64:	90                   	nop
+  65:	90                   	nop
+  66:	90                   	nop
+  67:	90                   	nop
   68:	90                   	nop
   69:	90                   	nop
   6a:	90                   	nop
