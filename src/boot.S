@@ -2,41 +2,40 @@
         [bits 16]
         ;       tokens
         TOKEN_EOF    equ 0
-        TOKEN_MUL    equ 1
-        TOKEN_ADD    equ 2
-        TOKEN_SUB    equ 3
-        TOKEN_DIV    equ 4
-        TOKEN_LPAREN equ 5
-        TOKEN_RPAREN equ 6
-        TOKEN_IDENT  equ 7
-        TOKEN_NUMBER equ 8
+        TOKEN_IDENT  equ 1
+        TOKEN_NUMBER equ 2
+        ;       All other tokens are the same as the ascii value
 
         ;       notice the equality
+        ;       Must align to 256 bytes
         SYMTOTOK     equ 0x6000
-        STACKTOP     equ SYMTOTOK
 
         ;       sizeof(identifier)
         IDENT_SIZE   equ 8
+        ;       stack is not our problem
+        ;       if sp == 0, and 8086 stack is pre decrement
+        ;       then first push will make it ss:fffe, which is fine, and safe
 _start: cld
-        mov     sp, STACKTOP
-        mov     bx, sp
+        mov     bx, SYMTOTOK
         mov     si, unget
         ;       cs must be zero for NORMAL BIOS's anyway
         ;       ss, es, ds is NOT our problem
         xor     ax, ax
-        mov     dx, ax ; dx must always be zero
+        ;       mov dx,0
+        ;       dl must be zero, dh must be prev
+        cwd
         ;       [0..255] := EOF
         mov     di, bx
         mov     cx, ax
         inc     ch
         repe    stosb
         ;       [..] := tokenfor(chr)
-init:   mov     byte[bx + '*'], TOKEN_MUL
-        mov     byte[bx + '+'], TOKEN_ADD
-        mov     byte[bx + '-'], TOKEN_SUB
-        mov     byte[bx + '/'], TOKEN_DIV
-        mov     byte[bx + '('], TOKEN_LPAREN
-        mov     byte[bx + ')'], TOKEN_RPAREN
+init:   ;       we know the buffer aligns to 256, therefore
+        mov     ax, di
+        stosb
+        inc     al
+        ;       all ascii value are 0..127
+        jno     init
         ; unget (normally zero anyway)
         ; mov     byte[si - (symtotok - unget)], dl
         mov     di, SYMTOTOK + 'A'
@@ -49,12 +48,11 @@ init:   mov     byte[bx + '*'], TOKEN_MUL
         repe    stosb
 next:   mov     di, identifier
         mov     cl, IDENT_SIZE
-        clc
-nextlp: cmp     byte[si], dl
+nextlp: mov     al, byte[si]
+        test    al, al
         je      nextchr
-nextun: mov     al, byte[si]
-        mov     byte[si], dl
-        jmp     classif
+nextun: mov     byte[si], dl
+        jmp     tok
 nextchr:xor     ax,ax   ; read(stdin,&al,1,1)
         int     0x16    ; echo(al)
         mov     ah,0xE
@@ -62,18 +60,23 @@ nextchr:xor     ax,ax   ; read(stdin,&al,1,1)
 tok:    mov     ah, al
         xlat
 classif:cmp     al, TOKEN_IDENT
+        je      ident
+        cmp     dh, TOKEN_IDENT
         jne     fall
-        mov     al, ah
+        jmp     ungetx
+ident:  mov     al, ah
         stosb
-        stc
+        mov     dh, TOKEN_IDENT
         loop    nextlp
         dec     di
         mov     byte[di], dl
+ungetx: ;       UnGet
         mov     byte[si], ah
 fall:   ;       otherwise, fall through unless we are the termination of an identifier
         ; mov     [token], al ; debug
         jc      override_ident
         ;       grab next token
+        mov     dh, al
         jmp     next
 override_ident:
         mov     al, TOKEN_IDENT
