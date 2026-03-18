@@ -4,7 +4,7 @@ override FSRC := $(SRC)/boot.S
 override OUTPUT := $(BIN)/BootC.boot
 override DISK := $(BIN)/BootC.img
 override AS := nasm
-override AS_FLAGS :=
+override AS_FLAGS := -I src
 override AS_OUTPUT :=
 override LISTING := temp.lst
 
