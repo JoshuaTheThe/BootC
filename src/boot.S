@@ -73,10 +73,9 @@ ident:  mov     al, ah
 ungetx: ;       UnGet
         mov     byte[si], ah
 fall:   ;       otherwise, fall through unless we are the termination of an identifier
-        ; mov     [token], al ; debug
+        mov     dh, al
         jc      override_ident
         ;       grab next token
-        mov     dh, al
         jmp     next
 override_ident:
         mov     al, TOKEN_IDENT
@@ -85,6 +84,5 @@ override_ident:
         times   510-($-$$) nop
         dw      0xAA55
 unget:  db 0
-; token:  db 0
 identifier:
         times IDENT_SIZE db 0
