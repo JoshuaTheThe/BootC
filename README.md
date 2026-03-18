@@ -17,6 +17,7 @@ int main(){
 }
 
 // only operators are +,-,*,/,* (deref), & (lea rhs)
+// only type of assignment, is direct and expression. (e.g. *(a) = 0)
 
 ```
 
