@@ -17,7 +17,7 @@ Disassembly of section .data:
   12:	89 f8                	mov    %di,%ax
   14:	aa                   	stos   %al,%es:(%di)
   15:	fe c0                	inc    %al
-  17:	71 f9                	jno    0x12
+  17:	71 e8                	jno    0x1
   19:	bf 41 60             	mov    $0x6041,%di
   1c:	b1 1a                	mov    $0x1a,%cl
   1e:	51                   	push   %cx
